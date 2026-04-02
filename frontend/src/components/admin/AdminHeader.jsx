@@ -9,7 +9,7 @@ export default function AdminHeader() {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/stats', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stats`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {

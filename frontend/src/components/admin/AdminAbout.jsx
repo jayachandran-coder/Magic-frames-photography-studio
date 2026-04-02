@@ -10,7 +10,7 @@ export default function AdminAbout() {
 
   const fetchAbout = async () => {
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/about');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/about`);
       if (res.ok) {
         const data = await res.json();
         setCurrentImage(data.imageUrl);
@@ -50,7 +50,7 @@ export default function AdminAbout() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/about', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/about`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`

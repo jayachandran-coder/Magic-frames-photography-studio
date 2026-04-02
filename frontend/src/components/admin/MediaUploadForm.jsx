@@ -22,7 +22,7 @@ export default function MediaUploadForm() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/media', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

@@ -8,7 +8,7 @@ export default function About() {
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/about');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/about`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.imageUrl) {

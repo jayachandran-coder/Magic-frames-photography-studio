@@ -10,7 +10,7 @@ export default function Services() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/services');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/services`);
         if (res.ok) {
           const data = await res.json();
           setServices(data);

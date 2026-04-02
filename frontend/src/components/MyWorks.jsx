@@ -11,7 +11,7 @@ export default function MyWorks() {
   useEffect(() => {
     const fetchMedia = async () => {
       try {
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/media');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media`);
         if (res.ok) {
           const data = await res.json();
           // Map backend data to compute proper thumbnails for videos

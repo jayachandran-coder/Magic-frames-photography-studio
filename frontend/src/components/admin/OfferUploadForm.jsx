@@ -24,7 +24,7 @@ export default function OfferUploadForm() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/offers', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/offers`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

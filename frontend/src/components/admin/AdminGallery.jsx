@@ -9,7 +9,7 @@ export default function AdminGallery() {
 
   const fetchMedia = async () => {
     try {
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/media');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media`);
       const data = await res.json();
       setMedia(data);
     } catch (err) {

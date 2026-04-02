@@ -20,7 +20,7 @@ export default function ReelSlider() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const res = await fetch('${import.meta.env.VITE_API_URL}/api/offers');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/offers`);
         if (res.ok) {
           const data = await res.json();
           setOffers(data);
