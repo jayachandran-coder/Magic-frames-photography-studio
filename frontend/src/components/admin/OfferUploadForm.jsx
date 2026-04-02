@@ -24,16 +24,16 @@ export default function OfferUploadForm() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/offers', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/offers', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
         },
-        body: formData, 
+        body: formData,
       });
 
       const data = await res.json();
-      
+
       if (res.ok) {
         setStatus({ loading: false, error: null, success: true });
         setTitle('');
@@ -53,19 +53,19 @@ export default function OfferUploadForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       {status.error && <div className="text-red-500 bg-red-500/10 p-2 border border-red-500/20 text-sm">{status.error}</div>}
       {status.success && <div className="text-primary bg-primary/10 p-2 border border-primary/20 text-sm">Offer created successfully!</div>}
-      
+
       <div>
         <label className="block text-sm font-medium text-neutral-400 mb-1">Title</label>
-        <input 
-          type="text" required 
+        <input
+          type="text" required
           value={title} onChange={(e) => setTitle(e.target.value)}
           className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
         />
       </div>
-      
+
       <div>
         <label className="block text-sm font-medium text-neutral-400 mb-1">Description</label>
-        <textarea 
+        <textarea
           required rows="3"
           value={description} onChange={(e) => setDescription(e.target.value)}
           className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none resize-none transition-colors"
@@ -75,25 +75,25 @@ export default function OfferUploadForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-neutral-400 mb-1">Button Text</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={buttonText} onChange={(e) => setButtonText(e.target.value)}
             className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-neutral-400 mb-1">Background Media</label>
-          <input 
+          <input
             id="offerFileInput"
-            type="file" required 
+            type="file" required
             onChange={(e) => setFile(e.target.files[0])}
             className="w-full bg-black/50 border border-neutral-700 py-1.5 text-neutral-400 file:bg-primary file:text-black file:border-0 file:py-1 file:px-2 file:mr-2 file:text-xs file:font-semibold text-sm focus:outline-none transition-colors"
           />
         </div>
       </div>
 
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         disabled={status.loading}
         className="w-full mt-4 bg-primary text-black font-semibold py-3 uppercase tracking-widest text-sm hover:bg-white transition-colors disabled:opacity-50"
       >

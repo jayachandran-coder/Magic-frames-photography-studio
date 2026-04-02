@@ -9,7 +9,7 @@ export default function AdminHeader() {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:5000/api/stats', {
+        const res = await fetch('${import.meta.env.VITE_API_URL}/api/stats', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {
@@ -35,22 +35,22 @@ export default function AdminHeader() {
           <h1 className="text-4xl font-heading text-white tracking-widest uppercase mb-2">Admin Dashboard</h1>
           <p className="text-neutral-400">Manage your cinematic portfolio</p>
         </div>
-        
+
         {/* View Counter Widget */}
         <div className="bg-primary/5 border border-primary/20 px-6 py-3 rounded-sm text-center shadow-lg min-w-[120px]">
           <div className="text-3xl font-heading text-white flex justify-center">{totalViews.toLocaleString()}</div>
           <div className="text-[10px] font-bold uppercase tracking-widest text-primary mt-1">Total Views</div>
         </div>
       </div>
-      
+
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <Link 
+        <Link
           to="/"
           className="text-sm font-medium uppercase tracking-widest text-black bg-primary hover:bg-white px-6 py-3 transition-colors rounded-sm shadow-lg shadow-primary/20"
         >
           Back to Site
         </Link>
-        <button 
+        <button
           onClick={handleLogout}
           className="text-sm font-medium uppercase tracking-widest text-neutral-400 hover:text-white border px-6 py-3 border-neutral-800 hover:border-neutral-500 transition-colors rounded-sm"
         >

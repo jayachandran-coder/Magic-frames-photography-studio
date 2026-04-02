@@ -9,7 +9,7 @@ export default function AdminServices() {
 
   const fetchServices = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/services');
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/services');
       if (res.ok) {
         const data = await res.json();
         setServices(data);
@@ -29,7 +29,7 @@ export default function AdminServices() {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:5000/api/services/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/services/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -69,43 +69,43 @@ export default function AdminServices() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
                 </div>
               )}
-              
+
               <div className="relative z-10 p-6 flex flex-col h-full">
                 <div className="absolute top-0 right-0 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button 
-                  onClick={() => setEditingService(service)}
-                  className="bg-black/50 p-2 text-neutral-400 hover:text-primary rounded border border-neutral-700 transition-colors"
-                >
-                  <Pencil size={16} />
-                </button>
-                <button 
-                  onClick={() => handleDelete(service._id)}
-                  className="bg-black/50 p-2 text-neutral-400 hover:text-red-500 rounded border border-neutral-700 transition-colors"
-                >
-                  <Trash2 size={16} />
-                </button>
+                  <button
+                    onClick={() => setEditingService(service)}
+                    className="bg-black/50 p-2 text-neutral-400 hover:text-primary rounded border border-neutral-700 transition-colors"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(service._id)}
+                    className="bg-black/50 p-2 text-neutral-400 hover:text-red-500 rounded border border-neutral-700 transition-colors"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+
+                <h3 className="text-lg font-heading text-white mb-2 pr-16">{service.title}</h3>
+                <p className="text-sm text-neutral-400 mb-4 line-clamp-3 mb-6 flex-grow">{service.description}</p>
+
+                <div className="mt-auto inline-block border border-primary/30 px-3 py-1 bg-primary/10 text-primary font-medium text-sm self-start">
+                  {service.price}
+                </div>
               </div>
-              
-              <h3 className="text-lg font-heading text-white mb-2 pr-16">{service.title}</h3>
-              <p className="text-sm text-neutral-400 mb-4 line-clamp-3 mb-6 flex-grow">{service.description}</p>
-              
-              <div className="mt-auto inline-block border border-primary/30 px-3 py-1 bg-primary/10 text-primary font-medium text-sm self-start">
-                {service.price}
-              </div>
-             </div>
             </div>
           ))
         )}
       </div>
 
       {editingService && (
-        <EditServiceModal 
-          item={editingService} 
-          onClose={() => setEditingService(null)} 
+        <EditServiceModal
+          item={editingService}
+          onClose={() => setEditingService(null)}
           onSuccess={() => {
             setEditingService(null);
             fetchServices();
-          }} 
+          }}
         />
       )}
     </div>

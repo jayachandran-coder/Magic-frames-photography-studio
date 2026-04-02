@@ -20,9 +20,9 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-    
+
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,29 +50,29 @@ export default function Login() {
       {/* Subtle Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full space-y-8 bg-card/60 backdrop-blur-md p-10 border border-neutral-800 relative z-10"
       >
         <div className="flex flex-col items-center">
-          <img 
-            src="/logo.png?v=1" 
-            alt="Magic Frames Logo" 
-            className="h-48 w-auto object-contain mb-2" 
+          <img
+            src="/logo.png?v=1"
+            alt="Magic Frames Logo"
+            className="h-48 w-auto object-contain mb-2"
           />
           <p className="mt-2 text-center text-sm text-neutral-400">
             Sign in to manage Magic Frames
           </p>
         </div>
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           {error && (
             <div className="text-red-500 text-sm text-center border border-red-900/50 bg-red-900/10 p-3 rounded-sm">
               {error}
             </div>
           )}
-          
+
           <div className="space-y-4">
             <div>
               <input
@@ -105,11 +105,11 @@ export default function Login() {
               {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
           </div>
-          
+
           <div className="text-center pt-4">
-             <button type="button" onClick={() => navigate('/')} className="text-sm text-neutral-500 hover:text-white transition-colors">
-               &larr; Back to Website
-             </button>
+            <button type="button" onClick={() => navigate('/')} className="text-sm text-neutral-500 hover:text-white transition-colors">
+              &larr; Back to Website
+            </button>
           </div>
         </form>
       </motion.div>

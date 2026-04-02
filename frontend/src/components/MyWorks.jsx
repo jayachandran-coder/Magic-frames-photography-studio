@@ -11,7 +11,7 @@ export default function MyWorks() {
   useEffect(() => {
     const fetchMedia = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/media');
+        const res = await fetch('${import.meta.env.VITE_API_URL}/api/media');
         if (res.ok) {
           const data = await res.json();
           // Map backend data to compute proper thumbnails for videos
@@ -32,7 +32,7 @@ export default function MyWorks() {
 
   return (
     <SectionWrapper id="works" title="My Works" subtitle="Selected Works" className="bg-dark">
-      
+
       {loading ? (
         <div className="flex justify-center items-center py-20">
           <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
@@ -44,16 +44,16 @@ export default function MyWorks() {
       {/* Media Modal for Fullscreen View */}
       <Modal isOpen={!!selectedMedia} onClose={() => setSelectedMedia(null)}>
         {selectedMedia?.type === 'video' ? (
-          <video 
-            src={selectedMedia.url} 
-            controls 
-            autoPlay 
+          <video
+            src={selectedMedia.url}
+            controls
+            autoPlay
             className="w-full h-auto max-h-[85vh] outline-none"
           />
         ) : (
-          <img 
-            src={selectedMedia?.url} 
-            alt={selectedMedia?.title} 
+          <img
+            src={selectedMedia?.url}
+            alt={selectedMedia?.title}
             className="w-full h-auto max-h-[90vh] object-contain"
           />
         )}

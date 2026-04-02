@@ -20,7 +20,7 @@ export default function ReelSlider() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/offers');
+        const res = await fetch('${import.meta.env.VITE_API_URL}/api/offers');
         if (res.ok) {
           const data = await res.json();
           setOffers(data);
@@ -105,7 +105,7 @@ export default function ReelSlider() {
             <SwiperSlide key={offer._id} className="w-full sm:w-[500px] md:w-[700px] lg:w-[900px] h-full group">
               {({ isActive }) => (
                 <div className={`relative w-full h-full rounded-xl overflow-hidden transition-all duration-700 ${isActive ? 'scale-100 ring-1 ring-primary/40 shadow-2xl shadow-primary/20' : 'scale-[0.85] opacity-50 blur-[2px]'}`}>
-                  
+
                   {/* Media Content */}
                   {offer.videoUrl ? (
                     <video
@@ -138,7 +138,7 @@ export default function ReelSlider() {
                       >
                         {offer.title}
                       </motion.h1>
-                      
+
                       <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -147,7 +147,7 @@ export default function ReelSlider() {
                       >
                         {offer.description}
                       </motion.p>
-                      
+
                       <motion.button
                         initial={{ opacity: 0, mt: 20 }}
                         animate={{ opacity: 1, mt: 0 }}
@@ -168,9 +168,9 @@ export default function ReelSlider() {
 
       {/* Booking Modal */}
       {selectedOffer && (
-        <BookingModal 
-          offer={selectedOffer} 
-          onClose={() => setSelectedOffer(null)} 
+        <BookingModal
+          offer={selectedOffer}
+          onClose={() => setSelectedOffer(null)}
         />
       )}
     </div>

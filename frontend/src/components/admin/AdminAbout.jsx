@@ -10,7 +10,7 @@ export default function AdminAbout() {
 
   const fetchAbout = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/about');
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/about');
       if (res.ok) {
         const data = await res.json();
         setCurrentImage(data.imageUrl);
@@ -50,7 +50,7 @@ export default function AdminAbout() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/about', {
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/about', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -89,9 +89,9 @@ export default function AdminAbout() {
           ) : currentImage ? (
             <img src={currentImage} alt="Live About" className="w-full h-[300px] object-cover rounded-sm border border-neutral-700 shadow-xl" />
           ) : (
-             <div className="text-neutral-500 italic text-sm text-center border border-dashed border-neutral-700 w-full h-[300px] flex items-center justify-center bg-black/50">
-               No custom image set.<br/>Using system default fallback.
-             </div>
+            <div className="text-neutral-500 italic text-sm text-center border border-dashed border-neutral-700 w-full h-[300px] flex items-center justify-center bg-black/50">
+              No custom image set.<br />Using system default fallback.
+            </div>
           )}
         </div>
 
@@ -99,13 +99,13 @@ export default function AdminAbout() {
         <div className="bg-black/40 border border-neutral-800 p-6">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
             <h3 className="text-neutral-500 uppercase tracking-widest text-xs font-bold mb-2">Upload Replacement</h3>
-            
+
             {/* Img Preview or Input */}
-             {previewUrl ? (
+            {previewUrl ? (
               <div className="relative border border-primary/50 group">
                 <img src={previewUrl} alt="Preview" className="w-full h-[200px] object-cover opacity-80" />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={clearSelection}
                   className="absolute top-2 right-2 bg-black/80 text-white p-2 rounded-full border border-neutral-700 hover:text-red-500 hover:border-red-500 transition-colors"
                 >
@@ -116,17 +116,17 @@ export default function AdminAbout() {
               <label className="border-2 border-dashed border-neutral-700 hover:border-primary/50 transition-colors bg-black/50 w-full h-[200px] flex flex-col items-center justify-center cursor-pointer group rounded-sm relative">
                 <Upload className="text-neutral-500 group-hover:text-primary transition-colors mb-4" size={32} />
                 <span className="text-sm text-neutral-400 group-hover:text-white transition-colors">Select new image</span>
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  className="hidden" 
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
                   onChange={handleFileChange}
                 />
               </label>
             )}
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={!file || loading}
               className="w-full py-4 border border-primary/30 bg-primary/10 text-primary font-medium uppercase tracking-widest hover:bg-primary hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >

@@ -10,7 +10,7 @@ export default function Services() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/services');
+        const res = await fetch('${import.meta.env.VITE_API_URL}/api/services');
         if (res.ok) {
           const data = await res.json();
           setServices(data);
@@ -59,7 +59,7 @@ export default function Services() {
                 <h3 className="text-2xl font-heading text-white mb-4 tracking-wide group-hover:text-primary transition-colors duration-300">
                   {service.title}
                 </h3>
-                
+
                 <p className="text-neutral-400 text-lg leading-relaxed mb-6 flex-grow">
                   {service.description}
                 </p>
@@ -70,7 +70,7 @@ export default function Services() {
                 </div>
 
                 {/* Book Now Button */}
-                <button 
+                <button
                   onClick={() => setSelectedService(service)}
                   className="mt-auto inline-flex items-center text-sm font-medium uppercase tracking-widest text-white border border-neutral-700 hover:border-primary px-6 py-3 transition-colors duration-300 group-hover:text-primary relative overflow-hidden"
                 >
@@ -85,12 +85,12 @@ export default function Services() {
 
       {/* Booking Modal for Services */}
       {selectedService && (
-        <BookingModal 
+        <BookingModal
           offer={{
             title: selectedService.title,
             description: selectedService.description
-          }} 
-          onClose={() => setSelectedService(null)} 
+          }}
+          onClose={() => setSelectedService(null)}
         />
       )}
     </SectionWrapper>

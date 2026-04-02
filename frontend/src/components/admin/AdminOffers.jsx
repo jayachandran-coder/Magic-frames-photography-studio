@@ -9,7 +9,7 @@ export default function AdminOffers() {
 
   const fetchOffers = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/offers');
+      const res = await fetch('${import.meta.env.VITE_API_URL}/api/offers');
       const data = await res.json();
       setOffers(data);
     } catch (err) {
@@ -27,7 +27,7 @@ export default function AdminOffers() {
     if (!window.confirm('Are you sure you want to permanently delete this offer?')) return;
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/offers/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/offers/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -56,18 +56,18 @@ export default function AdminOffers() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {offers.map((offer) => (
             <div key={offer._id} className="group relative aspect-[16/9] bg-neutral-900 overflow-hidden rounded-sm border border-neutral-800">
-              <img 
-                src={getMediaUrl(offer)} 
-                alt={offer.title} 
-                className="w-full h-full object-cover opacity-80 group-hover:opacity-30 transition-opacity duration-300 transform group-hover:scale-105" 
+              <img
+                src={getMediaUrl(offer)}
+                alt={offer.title}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-30 transition-opacity duration-300 transform group-hover:scale-105"
               />
-              
+
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between z-10">
                 <div>
                   <h3 className="text-white font-medium leading-tight drop-shadow-md text-lg">{offer.title}</h3>
                   <p className="text-neutral-300 text-xs mt-1 line-clamp-2">{offer.description}</p>
                 </div>
-                
+
                 <div className="flex gap-2 justify-end">
                   <button onClick={() => setEditingItem(offer)} className="p-2 bg-black hover:bg-white hover:text-black text-neutral-300 rounded-sm transition-colors border border-neutral-800 shadow-lg">
                     <Edit2 size={16} />
@@ -83,10 +83,10 @@ export default function AdminOffers() {
       )}
 
       {editingItem && (
-        <EditOfferModal 
-          item={editingItem} 
-          onClose={() => setEditingItem(null)} 
-          onSuccess={() => { setEditingItem(null); fetchOffers(); }} 
+        <EditOfferModal
+          item={editingItem}
+          onClose={() => setEditingItem(null)}
+          onSuccess={() => { setEditingItem(null); fetchOffers(); }}
         />
       )}
     </div>
