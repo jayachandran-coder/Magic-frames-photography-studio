@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #D4AF37;
+  --color-dark: #0a0a0a;
+  --color-card: #111111;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    @apply bg-dark text-white font-sans antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+
+/* Swiper custom styles overrides */
+.swiper-pagination-bullet {
+  @apply bg-white/50 w-2 h-2 transition-all duration-300;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-primary w-6 rounded-full;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-white/50 transition-colors duration-300 w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md bg-black/20;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  @apply text-primary bg-black/40;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-xl;
+}
