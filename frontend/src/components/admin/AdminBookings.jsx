@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const fetchBookings = async () => {
     try {
@@ -47,7 +48,7 @@ export default function AdminBookings() {
               </tr>
             </thead>
             <tbody>
-              {bookings.map((b) => (
+              {bookings.slice(0, visibleCount).map((b) => (
                 <tr key={b._id} className="hover:bg-neutral-900/50 transition-colors">
                   <td className="p-4 border-b border-neutral-800 text-sm text-neutral-300 whitespace-nowrap">
                     {new Date(b.createdAt).toLocaleDateString()}
@@ -64,6 +65,17 @@ export default function AdminBookings() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {!loading && visibleCount < bookings.length && (
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={() => setVisibleCount(prev => prev + 8)}
+            className="px-6 py-2 border border-neutral-700 text-neutral-300 hover:text-white hover:border-white transition-colors tracking-widest uppercase text-sm rounded-sm"
+          >
+            Load More Bookings
+          </button>
         </div>
       )}
     </div>

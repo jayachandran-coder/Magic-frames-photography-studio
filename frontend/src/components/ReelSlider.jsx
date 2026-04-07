@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation, EffectCoverflow } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import { motion, AnimatePresence } from 'framer-motion';
 import BookingModal from './BookingModal';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
+import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
@@ -75,36 +75,28 @@ export default function ReelSlider() {
       </div>
 
       {/* Main Slider Content */}
-      <div className="w-full max-w-[1600px] h-[70vh] z-10 mx-auto px-4 relative mt-16">
+      <div className="w-full h-screen z-10 relative">
         <Swiper
-          effect={'coverflow'}
+          effect={'fade'}
           grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={'auto'}
+          slidesPerView={1}
           loop={true}
           autoplay={{
-            delay: 4000,
+            delay: 5000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 2.5,
-            slideShadows: false,
-          }}
           pagination={{ clickable: true }}
           navigation={true}
-          modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+          modules={[EffectFade, Pagination, Navigation, Autoplay]}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          className="w-full h-full !pb-16"
+          className="w-full h-full"
         >
           {displayOffers.map((offer) => (
-            <SwiperSlide key={offer._id} className="w-full sm:w-[500px] md:w-[700px] lg:w-[900px] h-full group">
+            <SwiperSlide key={offer._id} className="w-full h-full relative">
               {({ isActive }) => (
-                <div className={`relative w-full h-full rounded-xl overflow-hidden transition-all duration-700 ${isActive ? 'scale-100 ring-1 ring-primary/40 shadow-2xl shadow-primary/20' : 'scale-[0.85] opacity-50 blur-[2px]'}`}>
+                <div className={`relative w-full h-full overflow-hidden transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
 
                   {/* Media Content */}
                   {offer.videoUrl ? (
@@ -114,49 +106,54 @@ export default function ReelSlider() {
                       muted
                       loop
                       playsInline
-                      className="w-full h-full object-cover transition-transform duration-[20s] ease-linear group-hover:scale-110"
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <img
                       src={offer.imageUrl}
                       alt={offer.title}
-                      className="w-full h-full object-cover transition-transform duration-[20s] ease-linear group-hover:scale-110"
+                      className="w-full h-full object-cover"
                     />
                   )}
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                  {/* Gradient Overlay for Text Readability - Premium SaaS Style */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
 
                   {/* Text Overlay for Active Slide */}
                   {isActive && (
-                    <div className="absolute bottom-10 left-10 right-10 flex border-l-2 border-primary pl-6 py-2 flex-col items-start text-left">
-                      <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-3xl md:text-5xl lg:text-6xl font-heading font-medium text-white mb-4 tracking-tight drop-shadow-lg"
-                      >
-                        {offer.title}
-                      </motion.h1>
+                    <div className="absolute inset-0 flex flex-col justify-center w-full px-8 md:px-16 lg:px-24 pt-20">
+                      <div className="w-full md:w-2/3 lg:w-1/2 flex flex-col items-start text-left">
+                        <motion.h1
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                          className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1] drop-shadow-xl"
+                        >
+                          {offer.title}
+                        </motion.h1>
 
-                      <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-neutral-300 text-lg md:text-xl max-w-2xl mb-8 drop-shadow-md"
-                      >
-                        {offer.description}
-                      </motion.p>
+                        <motion.p
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                          className="text-neutral-300 text-lg md:text-2xl mb-10 drop-shadow-md leading-relaxed"
+                        >
+                          {offer.description}
+                        </motion.p>
 
-                      <motion.button
-                        initial={{ opacity: 0, mt: 20 }}
-                        animate={{ opacity: 1, mt: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        onClick={() => setSelectedOffer(offer)}
-                        className="bg-primary/90 hover:bg-white text-black font-semibold px-8 py-3 rounded-sm tracking-wider uppercase transition-all duration-300 hover:shadow-xl hover:shadow-primary/40"
-                      >
-                        {offer.buttonText}
-                      </motion.button>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                        >
+                          <button
+                            onClick={() => setSelectedOffer(offer)}
+                            className="bg-primary hover:bg-white text-black font-semibold text-lg px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                          >
+                            {offer.buttonText}
+                          </button>
+                        </motion.div>
+                      </div>
                     </div>
                   )}
                 </div>

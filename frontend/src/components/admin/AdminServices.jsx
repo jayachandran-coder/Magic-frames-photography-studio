@@ -6,6 +6,7 @@ export default function AdminServices() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingService, setEditingService] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const fetchServices = async () => {
     try {
@@ -61,7 +62,7 @@ export default function AdminServices() {
             No services found. Add your first service!
           </div>
         ) : (
-          services.map((service) => (
+          services.slice(0, visibleCount).map((service) => (
             <div key={service._id} className="bg-neutral-900/50 border border-neutral-800 relative group hover:border-primary/50 transition-colors flex flex-col h-full overflow-hidden">
               {service.imageUrl && (
                 <div className="absolute inset-0 z-0">
@@ -71,7 +72,7 @@ export default function AdminServices() {
               )}
 
               <div className="relative z-10 p-6 flex flex-col h-full">
-                <div className="absolute top-0 right-0 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-2 right-2 flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => setEditingService(service)}
                     className="bg-black/50 p-2 text-neutral-400 hover:text-primary rounded border border-neutral-700 transition-colors"
@@ -97,6 +98,17 @@ export default function AdminServices() {
           ))
         )}
       </div>
+
+      {!loading && visibleCount < services.length && (
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={() => setVisibleCount(prev => prev + 8)}
+            className="px-6 py-2 border border-neutral-700 text-neutral-300 hover:text-white hover:border-white transition-colors tracking-widest uppercase text-sm rounded-sm"
+          >
+            Load More Services
+          </button>
+        </div>
+      )}
 
       {editingService && (
         <EditServiceModal

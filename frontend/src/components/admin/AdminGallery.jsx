@@ -6,6 +6,7 @@ export default function AdminGallery() {
   const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingItem, setEditingItem] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   const fetchMedia = async () => {
     try {
@@ -58,7 +59,7 @@ export default function AdminGallery() {
         <div className="text-neutral-500 py-8 text-center border border-dashed border-neutral-800">No media uploaded yet.</div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {media.map((item) => (
+          {media.slice(0, visibleCount).map((item) => (
             <div key={item._id} className="group relative aspect-square bg-neutral-900 overflow-hidden rounded-sm border border-neutral-800">
               <img
                 src={getThumbnail(item)}
@@ -66,7 +67,7 @@ export default function AdminGallery() {
                 className="w-full h-full object-cover opacity-80 group-hover:opacity-40 transition-opacity duration-300 transform group-hover:scale-105"
               />
 
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between z-10">
+              <div className="absolute inset-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between z-10 bg-black/50 md:bg-transparent">
                 <div>
                   <span className="text-primary text-xs uppercase tracking-widest font-bold bg-black/60 px-2 py-1 rounded-sm">{item.type}</span>
                   <h3 className="text-white font-medium leading-tight mt-2 drop-shadow-md">{item.title}</h3>
@@ -83,6 +84,17 @@ export default function AdminGallery() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {!loading && visibleCount < media.length && (
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={() => setVisibleCount(prev => prev + 8)}
+            className="px-6 py-2 border border-neutral-700 text-neutral-300 hover:text-white hover:border-white transition-colors tracking-widest uppercase text-sm rounded-sm"
+          >
+            Load More Images
+          </button>
         </div>
       )}
 

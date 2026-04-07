@@ -30,8 +30,9 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
         {/* Image Grid Column */}
-        <div className="relative h-[600px] w-full rounded-sm overflow-hidden group">
+        <div className="relative h-[600px] w-full rounded-xl shadow-2xl overflow-hidden group">
           <motion.img
+            loading="lazy"
             initial={{ scale: 1.1 }}
             whileInView={{ scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
@@ -91,6 +92,7 @@ export default function About() {
             className="mt-12"
           >
             <img
+              loading="lazy"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Signature_of_John_Hancock.svg/1200px-Signature_of_John_Hancock.svg.png"
               alt="Signature"
               className="h-16 opacity-40 invert filter"

@@ -22,7 +22,7 @@ export default function AdminDashboard() {
         <AdminHeader />
 
         {/* Dashboard Tabs */}
-        <div className="flex gap-8 border-b border-neutral-800 mb-8">
+        <div className="flex gap-8 border-b border-neutral-800 mb-8 overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide custom-scrollbar pb-2">
           <button 
             className={`pb-4 text-lg font-heading tracking-widest uppercase transition-colors relative ${activeTab === 'portfolio' ? 'text-white' : 'text-neutral-600 hover:text-neutral-400'}`}
             onClick={() => setActiveTab('portfolio')}

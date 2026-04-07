@@ -43,11 +43,11 @@ export default function Services() {
           {services.map((service) => (
             <div
               key={service._id}
-              className="group relative bg-card/50 backdrop-blur-sm border border-neutral-800 hover:border-primary/50 transition-colors duration-500 overflow-hidden flex flex-col h-full min-h-[400px]"
+              className="group relative bg-card/50 backdrop-blur-sm border border-neutral-800 hover:border-primary/50 transition-all duration-500 rounded-xl hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20 overflow-hidden flex flex-col h-full min-h-[400px]"
             >
               {service.imageUrl && (
                 <div className="absolute inset-0 z-0">
-                  <img src={service.imageUrl} alt={service.title} className="w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700 group-hover:scale-105" />
+                  <img loading="lazy" src={service.imageUrl} alt={service.title} className="w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/40 group-hover:from-black group-hover:via-black/70 group-hover:to-transparent transition-colors duration-700"></div>
                 </div>
               )}

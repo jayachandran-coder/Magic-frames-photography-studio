@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 export default function SectionWrapper({ id, title, subtitle, children, className = "" }) {
   return (
-    <section id={id} className={`py-32 px-6 ${className}`}>
-      <div className="max-w-7xl mx-auto">
+    <section id={id} className={`py-16 md:py-24 px-4 sm:px-6 lg:px-8 ${className}`}>
+      <div className="max-w-7xl mx-auto w-full">
         {(title || subtitle) && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -7,9 +7,13 @@ import About from './components/About';
 import MyWorks from './components/MyWorks';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Lazy loaded routes for performance optimization
+const Login = React.lazy(() => import('./pages/Login'));
+const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
+const SaaSHero = React.lazy(() => import('./components/SaaSHero'));
+const GalleryPage = React.lazy(() => import('./pages/GalleryPage'));
 
 function Home() {
   useEffect(() => {
@@ -48,18 +52,22 @@ function App() {
   return (
     <Router>
       <div className="bg-dark min-h-screen font-sans text-neutral-200 selection:bg-primary/30 selection:text-white">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
+        <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black"><div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div></div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/saas-demo" element={<SaaSHero />} />
+          </Routes>
+        </React.Suspense>
       </div>
     </Router>
   );

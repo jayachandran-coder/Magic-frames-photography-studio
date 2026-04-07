@@ -50,7 +50,7 @@ export default function GalleryGrid({ items = defaultMockData, onMediaClick }) {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
               onClick={() => onMediaClick && onMediaClick(item)}
-              className="break-inside-avoid relative group overflow-hidden bg-neutral-900 rounded-sm cursor-pointer block w-full mb-4 shadow-lg"
+              className="break-inside-avoid relative group overflow-hidden bg-neutral-900 rounded-xl cursor-pointer block w-full mb-4 shadow-lg hover:shadow-2xl transition-all"
             >
               {item.type === 'video' ? (
                 <video
@@ -60,14 +60,14 @@ export default function GalleryGrid({ items = defaultMockData, onMediaClick }) {
                   muted
                   loop
                   playsInline
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto object-cover filter brightness-[0.85] group-hover:brightness-100 transition-all duration-300"
                 />
               ) : (
                 <img
                   src={item.thumbnail || item.url}
                   alt={item.title}
                   loading="lazy"
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85] group-hover:brightness-100"
+                  className="w-full h-auto object-cover filter brightness-[0.85] group-hover:brightness-100 transition-all duration-300"
                 />
               )}
 
