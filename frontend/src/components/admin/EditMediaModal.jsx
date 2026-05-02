@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 export default function EditMediaModal({ item, onClose, onSuccess }) {
   const [title, setTitle] = useState(item.title);
   const [type, setType] = useState(item.type);
+  const [category, setCategory] = useState(item.category || 'Wedding');
+  const [showInWorks, setShowInWorks] = useState(item.showInWorks || false);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -14,6 +16,8 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('type', type);
+    formData.append('category', category);
+    formData.append('showInWorks', showInWorks);
     if (file) {
       formData.append('file', file);
     }
@@ -75,6 +79,34 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
               <option value="photo">Photo</option>
               <option value="video">Video</option>
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-neutral-400 mb-1">Event Category</label>
+            <select
+              value={category} onChange={(e) => setCategory(e.target.value)}
+              className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
+            >
+              <option value="Wedding">Wedding</option>
+              <option value="Birthday">Birthday</option>
+              <option value="Baby Shower">Baby Shower</option>
+              <option value="Other Events">Other Events</option>
+              <option value="Short Films">Short Films</option>
+              <option value="Ads">Ads</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              id="editShowInWorks"
+              checked={showInWorks}
+              onChange={(e) => setShowInWorks(e.target.checked)}
+              className="w-4 h-4 accent-primary"
+            />
+            <label htmlFor="editShowInWorks" className="text-sm font-medium text-neutral-400 cursor-pointer">
+              Show in My Works section
+            </label>
           </div>
 
           <div>

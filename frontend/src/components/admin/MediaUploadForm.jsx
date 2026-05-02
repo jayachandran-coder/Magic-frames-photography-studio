@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 export default function MediaUploadForm() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('photo');
+  const [category, setCategory] = useState('Wedding');
+  const [showInWorks, setShowInWorks] = useState(false);
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState({ loading: false, error: null, success: false });
 
@@ -16,6 +18,8 @@ export default function MediaUploadForm() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('type', type);
+    formData.append('category', category);
+    formData.append('showInWorks', showInWorks);
     formData.append('file', file); // Use 'file' as expected by multer
 
     setStatus({ loading: true, error: null, success: false });
@@ -35,6 +39,8 @@ export default function MediaUploadForm() {
       if (res.ok) {
         setStatus({ loading: false, error: null, success: true });
         setTitle('');
+        setCategory('Wedding');
+        setShowInWorks(false);
         setFile(null);
         // Clear file input visually
         document.getElementById('mediaFileInput').value = '';
@@ -69,6 +75,34 @@ export default function MediaUploadForm() {
           <option value="photo">Photo</option>
           <option value="video">Video</option>
         </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-neutral-400 mb-1">Event Category</label>
+        <select
+          value={category} onChange={(e) => setCategory(e.target.value)}
+          className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
+        >
+          <option value="Wedding">Wedding</option>
+          <option value="Birthday">Birthday</option>
+          <option value="Baby Shower">Baby Shower</option>
+          <option value="Other Events">Other Events</option>
+          <option value="Short Films">Short Films</option>
+          <option value="Ads">Ads</option>
+        </select>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <input
+          type="checkbox"
+          id="showInWorks"
+          checked={showInWorks}
+          onChange={(e) => setShowInWorks(e.target.checked)}
+          className="w-4 h-4 accent-primary"
+        />
+        <label htmlFor="showInWorks" className="text-sm font-medium text-neutral-400 cursor-pointer">
+          Show in My Works section
+        </label>
       </div>
 
       <div>

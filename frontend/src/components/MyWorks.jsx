@@ -11,7 +11,7 @@ export default function MyWorks() {
   useEffect(() => {
     const fetchMedia = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media?t=${Date.now()}`); // cache busting
         if (res.ok) {
           const data = await res.json();
           // Map backend data to compute proper thumbnails for videos
@@ -30,6 +30,8 @@ export default function MyWorks() {
     fetchMedia();
   }, []);
 
+  const showcasedWorks = worksData.filter(item => item.showInWorks === true || item.showInWorks === 'true');
+
   return (
     <SectionWrapper id="works" title="My Works" subtitle="Selected Works" className="bg-dark">
 
@@ -39,8 +41,9 @@ export default function MyWorks() {
         </div>
       ) : (
         <div className="flex flex-col items-center w-full">
+          
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-            {worksData.slice(0, 8).map((item) => (
+            {showcasedWorks.slice(0, 8).map((item) => (
               <div 
                 key={item._id} 
                 onClick={() => setSelectedMedia(item)}
@@ -54,7 +57,7 @@ export default function MyWorks() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                   <span className="text-primary text-xs uppercase tracking-widest font-medium mb-1 drop-shadow-md">
-                    {item.type}
+                    {item.category ? `${item.category} • ` : ''}{item.type}
                   </span>
                   <h3 className="text-white text-xl font-heading tracking-tight drop-shadow-lg leading-tight line-clamp-1">
                     {item.title}
@@ -63,7 +66,14 @@ export default function MyWorks() {
               </div>
             ))}
           </div>
-          {worksData.length > 8 && (
+          
+          {showcasedWorks.length === 0 && (
+            <div className="text-center py-20 text-neutral-500 w-full">
+               No works selected for showcase yet.
+            </div>
+          )}
+          
+          {showcasedWorks.length > 8 && (
             <Link 
               to="/gallery" 
               className="mt-12 inline-flex items-center text-sm font-medium uppercase tracking-widest text-white border border-neutral-700 hover:border-primary px-8 py-4 transition-colors duration-300 relative overflow-hidden group"

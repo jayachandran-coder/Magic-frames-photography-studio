@@ -69,8 +69,12 @@ export default function AdminGallery() {
 
               <div className="absolute inset-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-between z-10 bg-black/50 md:bg-transparent">
                 <div>
-                  <span className="text-primary text-xs uppercase tracking-widest font-bold bg-black/60 px-2 py-1 rounded-sm">{item.type}</span>
-                  <h3 className="text-white font-medium leading-tight mt-2 drop-shadow-md">{item.title}</h3>
+                  <div className="flex gap-2 mb-2 flex-wrap">
+                    <span className="text-primary text-xs uppercase tracking-widest font-bold bg-black/60 px-2 py-1 rounded-sm">{item.type}</span>
+                    {item.category && <span className="text-white text-xs uppercase tracking-widest font-bold bg-neutral-800 px-2 py-1 rounded-sm">{item.category}</span>}
+                    {item.showInWorks && <span className="text-green-400 text-xs uppercase tracking-widest font-bold bg-green-900/40 px-2 py-1 rounded-sm">In Works</span>}
+                  </div>
+                  <h3 className="text-white font-medium leading-tight drop-shadow-md">{item.title}</h3>
                 </div>
 
                 <div className="flex gap-2 justify-end">

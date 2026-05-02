@@ -19,6 +19,15 @@ const mediaSchema = new mongoose.Schema({
     type: String,
     // Only used if type === 'video' and a separate preview/thumbnail is needed
   },
+  category: {
+    type: String,
+    enum: ['Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Ads'],
+    required: [true, 'Please provide a category'],
+  },
+  showInWorks: {
+    type: Boolean,
+    default: false,
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Media', mediaSchema);

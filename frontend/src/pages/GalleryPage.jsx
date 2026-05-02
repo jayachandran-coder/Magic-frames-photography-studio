@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import GalleryGrid from '../components/GalleryGrid';
 import Modal from '../components/Modal';
 import { Link } from 'react-router-dom';
@@ -37,34 +35,8 @@ export default function GalleryPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen bg-dark pt-32 pb-24 px-6 relative">
+      <main className="min-h-screen bg-dark pt-12 pb-24 px-6 relative">
         <div className="max-w-7xl mx-auto w-full">
-          {/* Header & Back Button */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <motion.div 
-               initial={{ opacity: 0, x: -20 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.6 }}
-               className="relative z-50 pointer-events-auto block"
-            >
-              <Link to="/" className="inline-flex items-center text-neutral-400 hover:text-primary transition-colors mb-6 group cursor-pointer">
-                <ArrowLeft size={18} className="mr-2 transform group-hover:-translate-x-1 transition-transform" />
-                <span className="uppercase tracking-widest text-sm font-medium">Back to Site</span>
-              </Link>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-white tracking-tight">Complete Gallery</h1>
-            </motion.div>
-            
-            <motion.div
-               initial={{ opacity: 0, x: 20 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.6, delay: 0.2 }}
-               className="text-primary font-medium tracking-widest uppercase text-sm"
-            >
-              // All {worksData.length} records //
-            </motion.div>
-          </div>
-
           {/* Gallery Content */}
           {loading ? (
             <div className="flex justify-center items-center py-32">
@@ -100,7 +72,6 @@ export default function GalleryPage() {
 
         </div>
       </main>
-      <Footer />
     </>
   );
 }

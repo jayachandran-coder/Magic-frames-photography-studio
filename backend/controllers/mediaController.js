@@ -27,7 +27,7 @@ const getMedia = async (req, res) => {
 // @access  Private (Admin only)
 const uploadMedia = async (req, res) => {
   try {
-    const { title, type } = req.body;
+    const { title, type, category, showInWorks } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: 'No media file provided' });
@@ -36,6 +36,8 @@ const uploadMedia = async (req, res) => {
     const media = await Media.create({
       title,
       type,
+      category,
+      showInWorks: showInWorks === 'true' || showInWorks === true,
       url: req.file.path,
     });
 
@@ -56,6 +58,10 @@ const updateMedia = async (req, res) => {
 
     media.title = req.body.title || media.title;
     if (req.body.type) media.type = req.body.type;
+    if (req.body.category) media.category = req.body.category;
+    if (req.body.showInWorks !== undefined) {
+      media.showInWorks = req.body.showInWorks === 'true' || req.body.showInWorks === true;
+    }
 
     if (req.file) {
       // Delete old file from cloudinary

@@ -13,7 +13,7 @@ export default function Contact() {
                 <input 
                   type="text" 
                   className="w-full bg-transparent border-b border-neutral-700 focus:border-primary text-white py-3 outline-none transition-colors"
-                  placeholder="John Doe"
+                  placeholder="Enter Your Name"
                   required
                 />
               </div>
@@ -23,7 +23,7 @@ export default function Contact() {
                 <input 
                   type="email" 
                   className="w-full bg-transparent border-b border-neutral-700 focus:border-primary text-white py-3 outline-none transition-colors"
-                  placeholder="john@example.com"
+                  placeholder="Enter Your Email"
                   required
                 />
               </div>

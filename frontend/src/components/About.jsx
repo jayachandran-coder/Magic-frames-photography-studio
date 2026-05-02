@@ -54,8 +54,7 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="text-primary tracking-widest uppercase text-sm font-medium mb-6 flex items-center gap-4"
           >
-            <span className="w-12 h-[1px] bg-primary"></span>
-            The Artist
+            <span>__Our Story</span>
           </motion.span>
 
           <motion.h2
@@ -63,10 +62,9 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-heading text-white tracking-tight leading-[1.1] mb-8"
+            className="text-3xl md:text-3xl lg:text-4xl font-heading text-white tracking-tight leading-[1.1] mb-8"
           >
-            We don't just take pictures. <br />
-            <span className="text-primary italic font-serif">We frame magic.</span>
+            <span className="text-primary font-serif"> Where Passion Meets the Lens.</span>
           </motion.h2>
 
           <motion.div
@@ -77,10 +75,19 @@ export default function About() {
             className="space-y-6 text-neutral-400 text-lg lg:text-xl leading-relaxed max-w-xl"
           >
             <p>
-              Founded in 2018, Magic Frames is a boutique studio specializing in high-end visual storytelling. Whether it's the intimate joy of a wedding, the fast-paced energy of a commercial shoot, or the quiet elegance of an editorial portrait, we bring a cinematic eye to every project.
+              Hello! I’m Guhan, a visual storyteller dedicated to capturing life’s most beautiful moments through the art of photography and cinematography. My fascination with cinematic frames didn’t start at a desk—it started as a childhood dream that grew into a lifelong obsession.
             </p>
+            <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-3xl md:text-3xl lg:text-4xl font-heading text-white tracking-tight leading-[1.1] mb-8"
+          >
+            <span className="text-primary font-serif"> My Vision.</span>
+          </motion.h2>
             <p>
-              Our philosophy is simple: authentic emotion mixed with uncompromising aesthetic standards. We use state-of-the-art cinema cameras and lighting techniques to ensure your memories don't just look good, they feel real.
+              I believe that every celebration has a rhythm and every couple has a story. My goal is to use my award-winning storytelling background to turn your precious moments into an everlasting visual legacy.
             </p>
           </motion.div>
 
@@ -91,12 +98,6 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-12"
           >
-            <img
-              loading="lazy"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Signature_of_John_Hancock.svg/1200px-Signature_of_John_Hancock.svg.png"
-              alt="Signature"
-              className="h-16 opacity-40 invert filter"
-            />
           </motion.div>
         </div>
 
