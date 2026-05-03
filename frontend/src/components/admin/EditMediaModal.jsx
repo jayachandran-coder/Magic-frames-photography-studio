@@ -6,6 +6,7 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
   const [type, setType] = useState(item.type);
   const [category, setCategory] = useState(item.category || 'Wedding');
   const [showInWorks, setShowInWorks] = useState(item.showInWorks || false);
+  const [videoLink, setVideoLink] = useState(item.videoLink || '');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,6 +19,9 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
     formData.append('type', type);
     formData.append('category', category);
     formData.append('showInWorks', showInWorks);
+    if (type === 'video') {
+      formData.append('videoLink', videoLink);
+    }
     if (file) {
       formData.append('file', file);
     }
@@ -92,7 +96,8 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
               <option value="Baby Shower">Baby Shower</option>
               <option value="Other Events">Other Events</option>
               <option value="Short Films">Short Films</option>
-              <option value="Ads">Ads</option>
+              <option value="Decorations">Decorations</option>
+              <option value="Videos">Videos</option>
             </select>
           </div>
 
@@ -109,8 +114,21 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
             </label>
           </div>
 
+          {type === 'video' && (
+            <div>
+              <label className="block text-sm font-medium text-neutral-400 mb-1">Video Link (YouTube, Vimeo, etc.)</label>
+              <input
+                type="url" required
+                value={videoLink} onChange={(e) => setVideoLink(e.target.value)}
+                className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
+              />
+            </div>
+          )}
+
           <div>
-            <label className="block text-sm font-medium text-neutral-400 mb-1">Replace File (Optional)</label>
+            <label className="block text-sm font-medium text-neutral-400 mb-1">
+              {type === 'video' ? 'Replace Background Image (Optional)' : 'Replace File (Optional)'}
+            </label>
             <input
               type="file"
               onChange={(e) => setFile(e.target.files[0])}

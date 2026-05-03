@@ -30,18 +30,18 @@ export default function Navbar() {
         isScrolled ? "bg-black/70 backdrop-blur-lg " : "bg-transparent"
       }`}
     >
-      <div className="w-full px-6 md:px-12 lg:px-20 h-20 flex items-center justify-between">
+      <div className="w-full px-6 md:px-10 lg:px-20 h-20 flex items-center relative">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex items-center group z-10">
           <img 
-            src="/logo.png?v=1" 
+            src="logo.png" 
             alt="Magic Frames Logo" 
-            className="h-38 md:h-52 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            className="h-14 md:h-16 lg:h-18 py-2 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(255,140,0,0.8)]" 
           />
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-8 ml-auto z-10">
           {navLinks.map((link) => (
             <a
               key={link.title}
@@ -61,7 +61,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white hover:text-primary transition-colors"
+          className="md:hidden text-white hover:text-primary transition-colors ml-auto z-10"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}

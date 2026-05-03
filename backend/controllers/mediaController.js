@@ -27,7 +27,7 @@ const getMedia = async (req, res) => {
 // @access  Private (Admin only)
 const uploadMedia = async (req, res) => {
   try {
-    const { title, type, category, showInWorks } = req.body;
+    const { title, type, category, showInWorks, videoLink } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: 'No media file provided' });
@@ -39,6 +39,7 @@ const uploadMedia = async (req, res) => {
       category,
       showInWorks: showInWorks === 'true' || showInWorks === true,
       url: req.file.path,
+      videoLink: type === 'video' ? videoLink : undefined,
     });
 
     res.status(201).json(media);
@@ -61,6 +62,9 @@ const updateMedia = async (req, res) => {
     if (req.body.category) media.category = req.body.category;
     if (req.body.showInWorks !== undefined) {
       media.showInWorks = req.body.showInWorks === 'true' || req.body.showInWorks === true;
+    }
+    if (req.body.videoLink !== undefined) {
+      media.videoLink = req.body.videoLink;
     }
 
     if (req.file) {

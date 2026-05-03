@@ -17,12 +17,7 @@ export default function GalleryPage() {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media`);
         if (res.ok) {
           const data = await res.json();
-          // Map backend data to compute proper thumbnails for videos
-          const processedData = data.map(item => ({
-            ...item,
-            thumbnail: item.type === 'video' ? item.url.replace(/\.(mp4|mov|webm)$/i, '.jpg') : item.url
-          }));
-          setWorksData(processedData);
+          setWorksData(data);
         }
       } catch (err) {
         console.error("Failed to fetch media:", err);
@@ -54,20 +49,11 @@ export default function GalleryPage() {
 
           {/* Modular Fullscreen Viewer identical to homepage */}
           <Modal isOpen={!!selectedMedia} onClose={() => setSelectedMedia(null)}>
-            {selectedMedia?.type === 'video' ? (
-              <video
-                src={selectedMedia.url}
-                controls
-                autoPlay
-                className="w-full h-auto max-h-[85vh] outline-none"
-              />
-            ) : (
-              <img
-                src={selectedMedia?.url}
-                alt={selectedMedia?.title}
-                className="w-full h-auto max-h-[90vh] object-contain"
-              />
-            )}
+            <img
+              src={selectedMedia?.url}
+              alt={selectedMedia?.title}
+              className="w-full h-auto max-h-[90vh] object-contain"
+            />
           </Modal>
 
         </div>

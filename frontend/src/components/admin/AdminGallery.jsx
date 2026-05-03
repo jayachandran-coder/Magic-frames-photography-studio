@@ -42,7 +42,6 @@ export default function AdminGallery() {
   };
 
   const getThumbnail = (item) => {
-    if (item.type === 'video') return item.url.replace(/\.(mp4|mov|webm)$/i, '.jpg');
     return item.url;
   };
 

@@ -88,7 +88,7 @@ export default function SaaSHero() {
             {/* Hero Headline */}
             <h2 className="text-6xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
               Elevate your <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-yellow-200 to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#FFD700]">
                 workflow today.
               </span>
             </h2>

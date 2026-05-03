@@ -5,6 +5,7 @@ export default function MediaUploadForm() {
   const [type, setType] = useState('photo');
   const [category, setCategory] = useState('Wedding');
   const [showInWorks, setShowInWorks] = useState(false);
+  const [videoLink, setVideoLink] = useState('');
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState({ loading: false, error: null, success: false });
 
@@ -20,6 +21,9 @@ export default function MediaUploadForm() {
     formData.append('type', type);
     formData.append('category', category);
     formData.append('showInWorks', showInWorks);
+    if (type === 'video') {
+      formData.append('videoLink', videoLink);
+    }
     formData.append('file', file); // Use 'file' as expected by multer
 
     setStatus({ loading: true, error: null, success: false });
@@ -41,6 +45,7 @@ export default function MediaUploadForm() {
         setTitle('');
         setCategory('Wedding');
         setShowInWorks(false);
+        setVideoLink('');
         setFile(null);
         // Clear file input visually
         document.getElementById('mediaFileInput').value = '';
@@ -88,7 +93,8 @@ export default function MediaUploadForm() {
           <option value="Baby Shower">Baby Shower</option>
           <option value="Other Events">Other Events</option>
           <option value="Short Films">Short Films</option>
-          <option value="Ads">Ads</option>
+          <option value="Decorations">Decorations</option>
+          <option value="Videos">Videos</option>
         </select>
       </div>
 
@@ -105,8 +111,21 @@ export default function MediaUploadForm() {
         </label>
       </div>
 
+      {type === 'video' && (
+        <div>
+          <label className="block text-sm font-medium text-neutral-400 mb-1">Video Link (YouTube, Vimeo, etc.)</label>
+          <input
+            type="url" required
+            value={videoLink} onChange={(e) => setVideoLink(e.target.value)}
+            className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
+          />
+        </div>
+      )}
+
       <div>
-        <label className="block text-sm font-medium text-neutral-400 mb-1">File</label>
+        <label className="block text-sm font-medium text-neutral-400 mb-1">
+          {type === 'video' ? 'Background Image (Thumbnail)' : 'File'}
+        </label>
         <input
           id="mediaFileInput"
           type="file" required

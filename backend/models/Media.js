@@ -19,9 +19,12 @@ const mediaSchema = new mongoose.Schema({
     type: String,
     // Only used if type === 'video' and a separate preview/thumbnail is needed
   },
+  videoLink: {
+    type: String,
+  },
   category: {
     type: String,
-    enum: ['Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Ads'],
+    enum: ['Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Decorations', 'Videos'],
     required: [true, 'Please provide a category'],
   },
   showInWorks: {

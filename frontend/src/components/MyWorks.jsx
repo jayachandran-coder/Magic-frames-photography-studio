@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PlayCircle } from 'lucide-react';
 import SectionWrapper from './SectionWrapper';
 import Modal from './Modal';
 import { Link } from 'react-router-dom';
@@ -14,12 +15,7 @@ export default function MyWorks() {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/media?t=${Date.now()}`); // cache busting
         if (res.ok) {
           const data = await res.json();
-          // Map backend data to compute proper thumbnails for videos
-          const processedData = data.map(item => ({
-            ...item,
-            thumbnail: item.type === 'video' ? item.url.replace(/\.(mp4|mov|webm)$/i, '.jpg') : item.url
-          }));
-          setWorksData(processedData);
+          setWorksData(data);
         }
       } catch (err) {
         console.error("Failed to fetch media:", err);
@@ -46,16 +42,29 @@ export default function MyWorks() {
             {showcasedWorks.slice(0, 8).map((item) => (
               <div 
                 key={item._id} 
-                onClick={() => setSelectedMedia(item)}
+                onClick={() => {
+                  if (item.type === 'video' && item.videoLink) {
+                    window.open(item.videoLink, '_blank', 'noopener,noreferrer');
+                  } else {
+                    setSelectedMedia(item);
+                  }
+                }}
                 className="group relative aspect-square bg-neutral-900 overflow-hidden rounded-lg border border-neutral-800 cursor-pointer shadow-lg hover:shadow-2xl transition-all"
               >
                 <img
-                  src={item.thumbnail || item.url}
+                  src={item.url}
                   alt={item.title}
                   loading="lazy"
                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                
+                {item.type === 'video' && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity z-10">
+                    <PlayCircle size={48} className="text-white drop-shadow-lg" />
+                  </div>
+                )}
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 z-20">
                   <span className="text-primary text-xs uppercase tracking-widest font-medium mb-1 drop-shadow-md">
                     {item.category ? `${item.category} • ` : ''}{item.type}
                   </span>
@@ -87,20 +96,12 @@ export default function MyWorks() {
 
       {/* Media Modal for Fullscreen View */}
       <Modal isOpen={!!selectedMedia} onClose={() => setSelectedMedia(null)}>
-        {selectedMedia?.type === 'video' ? (
-          <video
-            src={selectedMedia.url}
-            controls
-            autoPlay
-            className="w-full h-auto max-h-[85vh] outline-none"
-          />
-        ) : (
-          <img
-            src={selectedMedia?.url}
-            alt={selectedMedia?.title}
-            className="w-full h-auto max-h-[90vh] object-contain"
-          />
-        )}
+        {/* We only show modal for photos now since videos navigate out */}
+        <img
+          src={selectedMedia?.url}
+          alt={selectedMedia?.title}
+          className="w-full h-auto max-h-[90vh] object-contain"
+        />
       </Modal>
 
     </SectionWrapper>

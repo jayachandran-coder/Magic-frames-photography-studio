@@ -12,7 +12,7 @@ export default function Footer() {
           <img 
             src="/logo.png?v=1" 
             alt="Magic Frames Logo" 
-            className="h-32 w-auto object-contain mb-6" 
+            className="h-10 w-auto object-contain mb-6" 
           />
           <p className="text-neutral-500 max-w-sm text-sm">
             Capturing the world through a cinematic lens. Uncompromising quality and visionary storytelling.

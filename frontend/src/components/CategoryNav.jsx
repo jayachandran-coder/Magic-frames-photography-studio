@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-const CATEGORIES = ['All', 'Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Ads'];
+const CATEGORIES = ['All', 'Videos', 'Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Decorations'];
 
 export default function CategoryNav({ activeCategory, onCategoryChange }) {
   return (

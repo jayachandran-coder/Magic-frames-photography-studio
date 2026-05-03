@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #D4AF37;
+  --color-primary: #FF8C00;
   --color-dark: #0a0a0a;
   --color-card: #111111;
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -19,6 +19,34 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+  .bg-primary {
+    background: linear-gradient(135deg, #FF8C00 0%, #FFD700 100%) !important;
+  }
+  
+  /* Override text-primary to be a gradient globally */
+  .text-primary {
+    background-image: linear-gradient(135deg, #FF8C00 0%, #FFD700 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+  }
+
+  /* Prevent SVGs from disappearing when text-primary is applied directly to them */
+  svg.text-primary {
+    background-image: none !important;
+    -webkit-text-fill-color: currentcolor !important;
+    color: #FF8C00 !important;
+  }
+
+  /* Prevent SVGs from disappearing when inheriting from a parent with text-primary */
+  .text-primary svg {
+    -webkit-text-fill-color: currentcolor !important;
+    color: #FF8C00 !important;
   }
 }
 
