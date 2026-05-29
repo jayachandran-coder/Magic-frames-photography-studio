@@ -24,6 +24,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/offers', require('./routes/offerRoutes'));
 app.use('/api/media', require('./routes/mediaRoutes'));
 app.use('/api/stats', require('./routes/statsRoutes'));
+app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/booking', require('./routes/bookingRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/about', require('./routes/aboutRoutes'));

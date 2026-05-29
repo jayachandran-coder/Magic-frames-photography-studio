@@ -9,6 +9,22 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
   const [videoLink, setVideoLink] = useState(item.videoLink || '');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`);
+        if (res.ok) {
+          const data = await res.json();
+          setCategoriesList(data);
+        }
+      } catch (err) {
+        console.error("Failed to load categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,13 +107,11 @@ export default function EditMediaModal({ item, onClose, onSuccess }) {
               value={category} onChange={(e) => setCategory(e.target.value)}
               className="w-full bg-black/50 border border-neutral-700 py-2 px-3 text-white focus:border-primary outline-none transition-colors"
             >
-              <option value="Wedding">Wedding</option>
-              <option value="Birthday">Birthday</option>
-              <option value="Baby Shower">Baby Shower</option>
-              <option value="Other Events">Other Events</option>
-              <option value="Short Films">Short Films</option>
-              <option value="Decorations">Decorations</option>
-              <option value="Videos">Videos</option>
+              <option value="">Select a category</option>
+              {categoriesList.map((cat) => (
+                <option key={cat._id} value={cat.name}>{cat.name}</option>
+              ))}
+              {categoriesList.length === 0 && <option value="">No categories available</option>}
             </select>
           </div>
 

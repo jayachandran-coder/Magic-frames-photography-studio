@@ -24,7 +24,6 @@ const mediaSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Wedding', 'Birthday', 'Baby Shower', 'Other Events', 'Short Films', 'Decorations', 'Videos'],
     required: [true, 'Please provide a category'],
   },
   showInWorks: {

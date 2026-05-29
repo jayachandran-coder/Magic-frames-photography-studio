@@ -3,11 +3,13 @@ import { PlayCircle } from 'lucide-react';
 import SectionWrapper from './SectionWrapper';
 import Modal from './Modal';
 import { Link } from 'react-router-dom';
+import CategoryNav from './CategoryNav';
 
 export default function MyWorks() {
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [worksData, setWorksData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -26,7 +28,9 @@ export default function MyWorks() {
     fetchMedia();
   }, []);
 
-  const showcasedWorks = worksData.filter(item => item.showInWorks === true || item.showInWorks === 'true');
+  const showcasedWorks = worksData.filter(item => {
+    return item.showInWorks === true || item.showInWorks === 'true';
+  });
 
   return (
     <SectionWrapper id="works" title="My Works" subtitle="Selected Works" className="bg-dark">
@@ -82,15 +86,13 @@ export default function MyWorks() {
             </div>
           )}
           
-          {showcasedWorks.length > 8 && (
-            <Link 
-              to="/gallery" 
-              className="mt-12 inline-flex items-center text-sm font-medium uppercase tracking-widest text-white border border-neutral-700 hover:border-primary px-8 py-4 transition-colors duration-300 relative overflow-hidden group"
-            >
-              <span className="relative z-10 group-hover:text-primary transition-colors">Load More</span>
-              <span className="absolute inset-0 bg-primary/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
-            </Link>
-          )}
+          <Link 
+            to="/gallery" 
+            className="mt-12 inline-flex items-center text-sm font-medium uppercase tracking-widest text-white border border-neutral-700 hover:border-primary px-8 py-4 transition-colors duration-300 relative overflow-hidden group"
+          >
+            <span className="relative z-10 group-hover:text-primary transition-colors">View Full Gallery</span>
+            <span className="absolute inset-0 bg-primary/10 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          </Link>
         </div>
       )}
 

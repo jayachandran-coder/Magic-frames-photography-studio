@@ -30,8 +30,39 @@ export default function GalleryPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-dark pt-12 pb-24 px-6 relative">
-        <div className="max-w-7xl mx-auto w-full">
+      <motion.main 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="min-h-screen bg-dark pt-8 pb-24 px-4 sm:px-6 md:px-8 relative"
+      >
+        <div className="max-w-[1600px] mx-auto w-full">
+          {/* Immersive Professional Title Banner */}
+          <div className="text-center pt-8 pb-12">
+            <motion.h1 
+              initial={{ y: -15, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl md:text-5xl font-heading font-light tracking-[0.25em] uppercase text-white"
+            >
+              MAGIC <span className="font-extrabold text-primary">FRAMES</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ y: 15, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-neutral-500 text-[10px] md:text-xs uppercase tracking-[0.4em] mt-3"
+            >
+              The Art of Visual Storytelling
+            </motion.p>
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="w-12 h-[1px] bg-neutral-800 mx-auto mt-6" 
+            />
+          </div>
+
           {/* Gallery Content */}
           {loading ? (
             <div className="flex justify-center items-center py-32">
@@ -39,9 +70,9 @@ export default function GalleryPage() {
             </div>
           ) : (
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <GalleryGrid items={worksData} onMediaClick={setSelectedMedia} />
             </motion.div>
@@ -57,7 +88,7 @@ export default function GalleryPage() {
           </Modal>
 
         </div>
-      </main>
+      </motion.main>
     </>
   );
 }
